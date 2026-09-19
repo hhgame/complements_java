@@ -156,4 +156,15 @@ public class EnumAnalyzerTest {
         assertTrue(report.indexOf("## Méthodes") < report.indexOf("## Interfaces"));
         assertTrue(report.indexOf("## Interfaces") < report.indexOf("## Annotations"));
     }
+
+    @Test
+    public void testJsonReport() {
+        EnumAnalyzer analyzer = new EnumAnalyzer(Jour.class);
+        analyzer.analyzeType();
+        analyzer.analyzeConstants();
+        String json = analyzer.generateJsonReport();
+        assertTrue(json.contains("\"Jour\""));
+        assertTrue(json.contains("\"LUNDI\""));
+        assertTrue(json.contains("\"ordinal\""));
+    }
 }
