@@ -1,0 +1,18 @@
+feat: approfondissement de l'analyse avec valeurs dynamiques et rapport JSON
+
+Ce commit répond aux exigences d'approfondissement ("Aller au-delà du minimum") du projet en implémentant deux fonctionnalités majeures :
+
+1. Extraction dynamique des valeurs d'attributs métier :
+- Modification de 'analyzeConstants()' pour identifier les attributs métier (ignorant les champs synthétiques et les constantes de l'enum).
+- Utilisation de l'API Reflection avec 'field.get()' et 'setAccessible(true)' pour lire et extraire la valeur exacte assignée à chaque constante.
+- Intégration de ces valeurs en tant que nouvelles colonnes dans le tableau Markdown.
+
+2. Production de rapports sous plusieurs formats (Arbre JSON natif) :
+- Ajout de la dépendance 'jackson-databind' (com.fasterxml.jackson.core) dans 'pom.xml'.
+- Instanciation d'un 'ObjectMapper' et d'un 'ObjectNode' racine dans le constructeur de l'analyseur.
+- Remplissage progressif de l'arbre JSON (via 'ObjectNode' et 'ArrayNode') dans chaque méthode d'analyse pour capturer la structure complète (types, constantes, valeurs, méthodes, paramètres, annotations).
+- Création de la méthode 'generateJsonReport()' renvoyant le JSON indenté complet.
+
+Tests :
+- Ajout de 'testJsonReport()' dans la suite JUnit pour vérifier la bonne production et la structure du format JSON généré.
+- Tous les tests existants restent validés (17 tests).
